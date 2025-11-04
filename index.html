@@ -1,0 +1,76 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sci-Fi Story and Restaurant Info</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .story {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .restaurant-info {
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .restaurant {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">Sci-Fi Story and Restaurant Info</h1>
+
+    <div class="story">
+        <h2>Sci-Fi Story</h2>
+        <p id="sci-fi-story"></p>
+    </div>
+
+    <div class="restaurant-info">
+        <h2>Restaurant Information</h2>
+        <div id="restaurant-list"></div>
+    </div>
+</div>
+
+<script>
+    // Load the story
+    fetch('story.txt')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('sci-fi-story').innerText = data;
+        });
+
+    // Load the restaurant data
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            const restaurantList = document.getElementById('restaurant-list');
+            data.forEach(restaurant => {
+                const restaurantDiv = document.createElement('div');
+                restaurantDiv.className = 'restaurant';
+                restaurantDiv.innerHTML = `<strong>${restaurant.name}</strong> - ${restaurant.city} 
+                <br>Location: ${restaurant.lat}, ${restaurant.long}`;
+                restaurantList.appendChild(restaurantDiv);
+            });
+        });
+</script>
+
+</body>
+</html>
+```
